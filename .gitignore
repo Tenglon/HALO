@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environments and caches
+.venv/
+.env
+.hf_home/
+.hf_rw/
+.hf_rw2/
+.runtime/
+
+# Experiment outputs
+outputs/
+*.log
+*.output
+*.pt
+*.pth
+*.ckpt
+wandb/
+runs/
+
+# Hydra / editor / OS
+.hydra/
+.DS_Store
+.vscode/
+.idea/
+
+# Third-party baselines / local model dumps not included in HALO release
+HySAC/
+hycoclip/
+other_models/
+
+# Local development notes and launch logs
+agent.md
+method.md
+try.md
+exp_setting.tex
+dry_run*.sh
+dry_eval.sh
+autorestart_dry_run.sh
+local_eval_watcher.sh
+slurm_eval_job.sh
+train_local_*.log
+train.log
+eval.log

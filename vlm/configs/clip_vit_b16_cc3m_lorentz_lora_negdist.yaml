@@ -1,0 +1,59 @@
+# Hybrid Euclidean + Lorentz (0.9 / 0.1) config for CLIP-B/16.
+
+defaults:
+  - base
+  - _self_
+
+data:
+  format: "hf"
+  dataset_name: "pingzhili/llava-filtered-cc3m-595k"
+  dataset_config: null
+  split: "train"
+  image_column: "image"
+  text_column: "caption"
+  streaming: false
+  image_size: 224
+  tokenizer:
+    provider: "transformers"
+    name: "openai/clip-vit-base-patch16"
+  num_workers: 8
+  shuffle: true
+  buffer_size: 1000
+  max_text_len: 77
+  pin_memory: true
+  drop_last: true
+  persistent_workers: true
+
+model:
+  hf_model_name: "openai/clip-vit-base-patch16"
+  embed_dim: 512
+  geometry: "hybrid"
+  matching_score: "hybrid_euclidean_lorentz"
+  lorentz:
+    enabled: true
+    curv: 1.0
+    learn_curv: true
+  hybrid:
+    euclidean_score: "euclidean_inner_product"
+    lorentz_score: "negative_lorentz_distance"
+    euclidean_weight: 0.9
+    lorentz_weight: 0.1
+
+lora:
+  enabled: true
+  r: 16
+  alpha: 32
+  dropout: 0.0
+  target_modules: ["q_proj", "k_proj", "v_proj", "out_proj"]
+  bias: "none"
+  task_type: "FEATURE_EXTRACTION"
+
+train:
+  batch_size: 256
+  lr: 1.0e-4
+  wd: 0.01
+  max_steps: 20000
+  warmup: 1000
+  grad_accum: 1
+  precision: "bf16"
+  seed: 42

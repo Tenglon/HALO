@@ -1,0 +1,16 @@
+eval:
+  task: "coco_retrieval"
+  model_source: "vlm_checkpoint"
+  vlm_train_config: "vlm/configs/clip_vit_b32_cc3m_lorentz_lora.yaml"
+  vlm_checkpoint: "outputs/dry_run/checkpoint_step_10.pt"
+  dataset_name: "jxie/coco_captions"
+  dataset_config: null
+  dataset_kwargs: {}
+  trust_remote_code: false
+  split: "validation"
+  image_column: "image"
+  caption_column: "caption"
+  image_id_column: "cocoid"
+  batch_size: 64
+  max_samples: 256
+  device: "cuda"

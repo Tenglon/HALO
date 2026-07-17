@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the HALO paper."
+title: "HALO: Hyperbolic Adaptation via Lift Overlay for Hierarchy-Aware Cross-Modal Retrieval"
+authors:
+  - family-names: Long
+    given-names: Teng
+  - family-names: Yates
+    given-names: Andrew
+year: 2026
+conference:
+  name: "SIGIR 2026"
+version: 0.1.0

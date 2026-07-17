@@ -1,0 +1,29 @@
+# Core
+accelerate
+torch
+torchvision
+numpy
+pillow
+pyyaml
+tqdm
+
+# Config
+hydra-core
+omegaconf
+
+# Data
+datasets
+pandas
+pyarrow
+
+# Tokenizer / models
+transformers
+peft
+
+# Optional
+# timm
+# tensorboard
+# wandb
+
+# Test
+pytest

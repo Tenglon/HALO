@@ -1,0 +1,87 @@
+# Base Hydra config scaffold.
+
+defaults:
+  - _self_
+
+# Data
+
+data:
+  format: "hf"  # hf or jsonl/parquet
+  dataset_name: "pingzhili/llava-filtered-cc3m-595k"
+  dataset_config: null
+  split: "train"
+  data_dir: null
+  data_files: null
+  image_column: "image"
+  text_column: "caption"
+  id_column: null
+  streaming: false
+  dummy_num_samples: 64
+  path: null
+  image_size: 224
+  num_workers: 8
+  shuffle: true
+  buffer_size: 1000
+  tokenizer:
+    provider: "transformers"
+    name: "openai/clip-vit-base-patch32"
+  max_text_len: 77
+  is_train: true
+  pin_memory: true
+  drop_last: true
+  persistent_workers: true
+
+# Model
+
+model:
+  hf_model_name: "openai/clip-vit-base-patch32"
+  embed_dim: 512
+  geometry: "lorentz"  # lorentz, euclidean, or hybrid
+  matching_score: "lorentz_inner_product"  # lorentz_inner_product, negative_lorentz_distance, euclidean_inner_product, negative_euclidean_distance, hybrid_euclidean_lorentz
+  gradient_checkpointing: false
+  lorentz:
+    enabled: true
+    curv: 1.0
+    learn_curv: false
+  hybrid:
+    euclidean_score: "euclidean_inner_product"
+    lorentz_score: "negative_lorentz_distance"
+    euclidean_weight: 0.5
+    lorentz_weight: 0.5
+
+# LoRA
+
+lora:
+  enabled: true
+  r: 8
+  alpha: 16
+  dropout: 0.0
+  target_modules: ["q_proj", "k_proj", "v_proj", "out_proj"]
+  bias: "none"
+  task_type: "FEATURE_EXTRACTION"
+
+# Training
+
+train:
+  batch_size: 256
+  lr: 1.0e-4
+  wd: 0.01
+  beta1: 0.9
+  beta2: 0.999
+  scheduler: "cosine"  # cosine, linear, constant/none
+  min_lr_ratio: 0.1
+  resume_from: null
+  max_steps: 10000
+  warmup: 500
+  schedule_total_steps: null
+  train_logit_scale: true
+  grad_accum: 1
+  precision: "bf16"
+  seed: 42
+
+# Logging / checkpoint
+
+logging:
+  output_dir: "outputs"
+  log_every: 50
+  save_every: 1000
